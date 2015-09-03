@@ -59,7 +59,7 @@ class xCookie {
 	private function toObject($value){
 		
 		$pre = @json_encode($value);
-		return @json_decode($pre);
+		return $pre;
 		
 	}
 	
