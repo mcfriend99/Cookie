@@ -1,12 +1,12 @@
 <?php 
 
 /* 
-class Cookie
+class xCookie
 Handles all thing related to setting, getting and deleting cookies.
  */
 
 /**
- * Configuration for: Cookies
+ * Configuration for: xCookies
  * Please note: The COOKIE_DOMAIN needs the domain where your app is,
  * in a format like this: .mydomain.com
  * Note the . in front of the domain. No www, no http, no slash here!
@@ -25,7 +25,7 @@ define("COOKIE_DOMAIN", ".127.0.0.1");
 define("COOKIE_SECRET_KEY", "1gp@TMPS{+$78sfpMJFe-92s");
 
 
-class Cookie {
+class xCookie {
 
 	
 	private $random_token_string = null;
