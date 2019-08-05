@@ -1,8 +1,8 @@
 <?php 
 
-/* 
-class xCookie
-Handles all thing related to setting, getting and deleting cookies.
+/** 
+ * class xCookie
+ * Handles all thing related to setting, getting and deleting cookies.
  */
 
 /**
@@ -20,6 +20,7 @@ Handles all thing related to setting, getting and deleting cookies.
  * COOKIE_DOMAIN: The domain where the cookie is valid for, like '.mydomain.com'
  * COOKIE_SECRET_KEY: Put a random value here to make your app more secure. When changed, all cookies are reset.
  */
+
 define("COOKIE_RUNTIME", 1209600);
 define("COOKIE_DOMAIN", ".127.0.0.1");
 define("COOKIE_SECRET_KEY", "1gp@TMPS{+$78sfpMJFe-92s");
@@ -27,17 +28,13 @@ define("COOKIE_SECRET_KEY", "1gp@TMPS{+$78sfpMJFe-92s");
 
 class xCookie {
 
-	
 	private $random_token_string = null;
 	
 	function exists($name){
-		
 		return isset($_COOKIE[$name]);
-		
 	}
 
-	function setCookie($name, $value, $location = "/"){
-		
+	function setCookie($name, $value, $location = "/") {
 		$this->random_token_string = hash('sha256', mt_rand());
 		$cookie_string_first_part = $value . ':' . $random_token_string;
         $cookie_string_hash = hash('sha256', $cookie_string_first_part . COOKIE_SECRET_KEY);
@@ -46,43 +43,26 @@ class xCookie {
 		if(setcookie($name, $cookie_string, time() + COOKIE_RUNTIME, $location)){
 			return $this->random_token_string;
 		} else return false;
-		
 	}
 	
-	function deleteCookie($name, $location = '/'){
-		
+	function deleteCookie($name, $location = '/') {
 		return setcookie($name, false, time() - (3600 * 3650), $location);
-		
 	}
 	
-	
-	private function toObject($value){
-		
+	private function toObject($value) {
 		$pre = @json_encode($value);
 		return $pre;
-		
 	}
 	
-	
-	function getCookieValue($name){
-		
-		
+	function getCookieValue($name) {
 		list ($cookie_id, $token, $hash) = explode(':', $_COOKIE[$name]);
 		
 		if ($hash == hash('sha256', $cookie_id . ':' .$token . COOKIE_SECRET_KEY) && !empty($token)) {
-			
 			return $this->toObject(array("id"=>$cookie_id,"token"=>$token));
 		} else {
 			return false;
 		}
-		
 	}
-
-
 }
-
-
-
-
 
 ?>
